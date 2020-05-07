@@ -1,0 +1,232 @@
+---
+title: "R_review"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# 1. Basic feture in R
+```{r}
+#assign varible by <-
+a <- 5 #a=5
+#need help,use ?
+?seq
+#whether the element is NA, use is.na()
+#returns TRUE,FALSE
+is.na(c(1,2,NA))
+#print(), cat()
+#cat() prints a better looking form
+#cat() doesn't change lines, use '\n' to change lines
+print(c(1,2,3))
+cat(c(1,2,3))
+cat(c(2,3),'\n')
+#paste(), give every element in a vector a given note
+paste(c(1,2,3),'%')
+paste(c(1,2,3),c('%','a','c'))
+```
+### (1) Vector
+```{r}
+#use c() to collect needed values
+c(1,2,3,4,5)
+vec1 <- c(1:5)#c(1,2,3,4,5)
+vec2 <- c(2:10)#c(2,3,4,5,6,7,8,9,10)
+vec3 <- c(vec1,vec2)#append vec2 to vec1 and assing it to vec3
+vec1
+vec2
+vec3
+#counting elements in a vector use length()
+length(vec3)
+#extract elements in a vector by location
+vec3[9]#the ninth element in vec3
+vec3[c(3,6)]#the third and sixth element
+vec3[-10]#remove tenth element in vec3
+vec3[-c(2:5)]#remove 2~5th element in vec3
+#assign values into a vector
+vec1[3] <- 20 #change the third value
+vec1
+```
+### (2) vector caculation
+```{r}
+#multiplication every element in vectors
+vec1 * 3
+#plus a scalar to every element
+vec1 + 3
+#power of every element
+vec1^3
+vec1^c(2,3,5,7,2)
+#if the length of the divisor vector is less longer
+#then the dividend vector then the divisor vetors
+#repeat
+c(1,1,2,4,3,2,5,2,4,5,6) %% 2:3
+```
+### (2-1) vector function
+```{r}
+b <- c(3 ,3, 2,3, 3, 5 ,5 ,6 ,6 ,7, 10 ,21)
+# use unique() to return the elements that appear at least one time
+unique(b)
+# use table() to count the repeat element in a vector
+table(b)
+```
+### (3) Matrix
+```{r}
+a <- 1:5
+b <- 6:10
+c <- 11:15
+d <- 16:20
+x <- 1:20
+#construct matrix by row,use rbind
+M1 <- rbind(a,b,c,d)
+M1
+#construct matrix by column, use cbind
+cbind(a,b,c,d)
+#construct matrix by vector, use matrix
+matrix(x,nrow = 4, ncol = 5)
+matrix(x,nrow = 5, ncol = 4)
+#dimension
+dim(M1)
+#get column or row names
+colnames(M1)
+rownames(M1)
+#assign column or rows names
+colnames(M1) <- c('x','y','z','w','r')
+M1
+#extract element from matrix
+M1[2,4]#row2column4
+M1[c(2:4),3]#row 2~4,column3
+M1[12]#extract the 12th element counting by row index
+M1['a','x']#extract by row,columns names
+```
+# 2. Calculation
+### (1) Basic calculation
+```{r}
+3+5 #addition
+5*3 #multiplication
+5/3 #divison
+5%%3 #remainder
+5%/%3 #quotient
+3^5 #powers
+```
+### (2) special calculation
+```{r}
+abs(-2)#get absolute value
+exp(2)#exponential function
+log(2)#natural logarith
+log10(2)#logarthm with 10 as base number
+sqrt(2)#square root
+```
+### (3) approximate value
+```{r}
+round(123.4567)#rounding given value to the unit digtis
+round(123.4567,digits = 3)#rounding given value to third digits after the decimal point
+round(123.4567,digits = -2)#rounding given value to the tenth digits
+floor(123.4567)
+ceiling(123.4567)
+```
+
+# 3. Sequence,Repeat
+```{r}
+#SEQUENCE
+1:10
+seq(1,10,2) #arithmetic sequence with d=2
+seq(1,10,length.out = 6)#arithmetic sequence with 6 element
+#REPEAT
+rep(3,10)#repeats 3 ten times
+rep(2:3,10)#repeats 2:3 ten times
+rep(2:10,seq(2,10))
+
+```
+# 4. Descriptive statistics
+```{r}
+x <- seq(1,20,3)
+mean(x)
+var(x)
+median(x)
+quantile(x,c(0.1,0.5,0.7))
+#get descriptive statistics with easy ways
+summary(x)
+```
+### (1) dealing with missing value
+```{r cache=FALSE}
+x <- c(1,2,NA,7,9)
+#ignores the missing values with na.rm
+mean(x,na.rm = TRUE)
+var(x,na.rm = TRUE)
+```
+# 5. Control Flow
+### (1) for()
+```{r}
+vec1 <- c()
+#index : i
+#vector :1:10
+#put command in {}
+for(i in 1:10){
+  vec1[i] <- i
+}
+vec1
+```
+### (2) if()
+```{r}
+a <- 5
+b <- 3
+c <- 6
+if(a == b){
+  print('a=b')
+}else if(b == c){
+  print('b==c')
+}else{
+  print('a != b != c')
+}
+```
+### (3) while()
+```{r}
+j <- 1
+while(j <= 3){
+  print(j)
+  j <- j + 1
+}
+```
+# 6. Functions
+```{r}
+ f <- function(x){
+   y <- 3*x + 2
+   return(y)
+}
+f(2); f(3); f(4)
+```
+# 7. Data Input
+```{r}
+df = data.frame(a=c(1,2,3),
+           b=c(4,5,6),
+           c=c(7,8,9))
+row.names(df) = c('x','y','z')
+df
+#get data from harddrive
+setwd('/Users/yinziwei/Desktop')
+read.csv('test.csv')[c(1:5),]
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
